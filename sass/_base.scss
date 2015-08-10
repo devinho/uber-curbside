@@ -1,0 +1,23 @@
+@import url('http://fonts.googleapis.com/css?family=Bree+Serif|Merriweather');
+@import url('http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css');
+
+@font-face{
+	font-family: proximaNova;
+	src: url(../assets/fonts/proximanova.otf) format("opentype");
+}
+
+body, h1, h2, h3, h4, h5{
+	font-family: proximaNova !important; 
+}
+
+.row{
+	max-width: 68em !important;
+}
+
+.ht{
+	color: #50BAC9;
+}
+
+.white{
+	color: white;
+}

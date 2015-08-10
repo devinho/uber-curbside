@@ -1,0 +1,68 @@
+<div id="header" class="row" >
+	<div class="large-12 columns">
+		<h2 class="ht" style="margin-bottom: 0; margin-right: 10px;">Curbside with Uber</h2> <img src="https://www.shopcurbside.com/media/img/logo.png" style="margin-bottom: 5px;"> + <img style="margin-left: -7px" src="http://logok.org/wp-content/uploads/2015/04/Uber-logo-880x660.png">
+			
+		<!-- <h4 style="margin-top: 0">A test app for Curbside using the Uber API</h4> -->
+	</div>
+
+	<div class="large-12 columns" style="padding-top: 10px; padding-bottom: 10px">
+
+		<!-- <h5 style="display: inline;">Deliver to: <span id="start">{{startAddress}}</span></h5>
+		<a href="/#/checkout?address={{startAddress}}"><img style="margin-left: 5px; margin-top: -10px;" src="./assets/images/cart.png"></a> -->
+		<div>
+		<form style="display: inline">
+			<p >Address: </p><input ng-model="address" required>
+			<p> City: </p><input ng-model="city" required>
+			<p>State: </p><input ng-model="state" required> 
+			<p>Zip: </p><input ng-model="zip" required>
+			<button ng-click="addressSubmit(address, city, state, zip)" style="margin: 4px 0 0 5px; height: 25px; padding: 3px 15px; background-color: #60CFDF; font-size: 12px">Submit</button>
+		</form>
+			<a href="/#/checkout?address={{address}}&city={{city}}&state={{state}}&zip={{zip}}"><img style="margin-left: 5px; margin-top: -10px;" src="./assets/images/cart.png"></a>
+			<p style="display: inline;">{{size}}</p>
+		</div>
+	</div>
+	
+</div>
+
+
+<div class="row">
+	<div class="large-12 columns">
+		<h5>Current store: {{currentStore}}</h5>
+		<form>
+			<input ng-model="query" style="width: 80%; display: inline" type="text" placeholder="Search">
+			<button ng-click="getResults(query, lat, lon)" style="margin: 4px 0 0 5px; height: 37px; padding: 3px 15px; background-color: #60CFDF">Submit</button>
+		</form>
+	</div>
+
+</div>
+
+<div id="results" class="row">
+	<div class="large-12 columns">
+		<h5>{{message}}</h5>
+		<div ng-repeat="(key, value) in products | ranked: currentStore | orderByRank: 'rank'" class="row" style="border-bottom: 2px #E0E0E0 solid;">
+			<div class="large-2 columns">
+				<img src="{{value.image}}">
+			</div>
+			<div style="padding-top: 20px; position: relative;" class="large-6 columns">
+				<h4>{{value.name}}</h4>
+				<h4>{{value.price}}</h4>
+				<h5>{{value.closest}} + <span ng-mouseover="displayStores()">{{value.additional}} more stores</span></h5>	
+				<!-- <div class="test">STORES</div> -->
+			</div>	
+			<div style="padding:50px 0 0 100px;" class="large-4 columns">
+				<!-- <button class="round tiny" ng-click="removeOneFromCart(key, value)" style="display: inline;">-</button> -->
+				<img src="./assets/images/remove.png" ng-click="removeOneFromCart(value.key_id, value)" style="height: 20px; margin: 5px 5px 10px 5px; cursor: pointer">
+				<span>{{value.quantity}}</span>
+				<!-- <button class="round tiny" ng-click="addOneToCart(key, value)" style="display: inline;">+</button> -->
+				<img src="./assets/images/add.png" ng-click="addOneToCart(value.key_id, value)" style="height: 20px; margin: 5px 5px 10px 5px; cursor: pointer">
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<button ng-click='login()'>login</button>
+
+<button ng-click='test()'>test</button>
+
+<button ng-click='status()'>status</button>

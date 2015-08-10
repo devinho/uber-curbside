@@ -1,0 +1,65 @@
+@import "compass";
+@import "compass/reset";
+
+@import "variables";
+@import "mixins";
+@import "base";
+
+html{
+	padding-top: 20px;
+}
+
+#header{
+	p{
+	display: inline;
+	}
+	h2{
+		display: inline-block;
+	}
+	img{ 
+		height: 20px;
+		width: auto;
+	}
+	input{
+		width: 15%;
+		display: inline;
+	}
+}
+
+#results{
+	img{
+		height: 160px;
+		width: auto;
+	}
+}
+
+#checkout-cart{
+	.store{
+		padding: 15px;
+		border-bottom: 1px #E0E0E0 solid;
+		cursor: pointer;
+	}
+	.store:hover{
+		background: #E0E0E0;
+		-webkit-transition: all 0.4s linear;
+	    -moz-transition: all 0.4s linear;
+	    -ms-transition: all 0.4s linear;
+    	-o-transition: all 0.4s linear;
+	}
+}
+
+#map-canvas{
+	height: 500px;
+	width: 500px;
+	display: block;
+}
+
+.selected{
+	background-color: #E0E0E0;	
+}
+
+.test{
+	position: absolute;
+	background-color: rgba(172, 172, 176, 0.5);
+	top: 110px;
+}

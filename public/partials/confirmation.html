@@ -1,0 +1,53 @@
+<div id="header" class="row">
+	<div class="large-6 columns">
+		<h2 class="ht" style="margin-bottom: 0; margin-right: 10px;">Curbside with Uber</h2> <img src="https://www.shopcurbside.com/media/img/logo.png" style="margin-bottom: 5px;"> + <img style="margin-left: -7px" src="http://logok.org/wp-content/uploads/2015/04/Uber-logo-880x660.png">
+			
+		<!-- <h4 style="margin-top: 0">A test app for Curbside using the Uber API</h4> -->
+	</div>
+
+	<div class="large-6 columns" style="padding-top: 20px">
+
+		<h5 style="display: inline;">Deliver to: </h5><p>{{address}} {{city}}, {{state}}, {{zip}}</p>
+		<a href="/#/checkout?address={{startAddress}}"><img style="margin-left: 5px; margin-top: -10px;" src="./assets/images/cart.png"></a>	
+		<p style="display: inline;">{{size}}</p>
+	</div>
+	
+</div>
+
+<div class="row">
+	<div class="large-12 columns" style="margin-bottom: 15px;">
+		<a href="#/checkout">Back to Checkout</a>
+		<h3>Your Order is in Progress</h3>
+		<h5>It will be picked up at {{store.name}}, {{store.address}} in about {{store.est_minutes}} minutes</h5>	
+	</div>
+</div>
+<div class="row">
+	<div class="large-6 columns">
+		<h3>{{store.name}}</h3>
+		<h5>{{store.address}}</h5>	
+			
+		<div ng-repeat="item in completeCart" class="row">
+			<div class="large-4 columns">
+				<img  src="{{item.image}}">
+			</div>
+			<div style="padding-top: 20px;" class="large-8 columns">
+				<h5>{{item.name}}</h5>
+				<h5 style="display: inline; margin-right: 20px;">{{item.price}}</h5>
+				<h5 style="display: inline;">Quantity: {{item.quantity}}</h5>
+			</div>	
+
+		</div>
+
+		<div style="margin: 10px 0 0 180px;">
+			<h5> Uber (high estimate): ${{uberCost}}</h5>
+			<h5> Tax: ${{tax}}</h5>
+			<h5> Total: ${{total}}</h5>
+		</div>
+
+		
+
+	</div>
+	<div class="large-6 columns">
+		<div id="map-canvas" ng-init="initialize()"></div>
+	</div>
+</div style="margin-bottom: 20px;">

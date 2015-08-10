@@ -1,0 +1,83 @@
+<div id="header" class="row" >
+	<div class="large-6 columns">
+		<h2 class="ht" style="margin-bottom: 0; margin-right: 10px;">Curbside with Uber</h2> <img src="https://www.shopcurbside.com/media/img/logo.png" style="margin-bottom: 5px;"> + <img style="margin-left: -7px" src="http://logok.org/wp-content/uploads/2015/04/Uber-logo-880x660.png">
+			
+		<!-- <h4 style="margin-top: 0">A test app for Curbside using the Uber API</h4> -->
+	</div>
+
+	<div class="large-6 columns" style="padding-top: 20px">
+
+		<h5 style="display: inline;">Deliver to: </h5><p>{{address}} {{city}}, {{state}}, {{zip}}</p>
+		<img style="margin-left: 5px; margin-top: -10px;" src="./assets/images/cart.png">
+		<p style="display: inline;">{{size}}</p>
+	</div>
+	
+</div>
+
+
+<div class="row" style="margin-bottom: 30px;">
+
+	<div id="checkout-cart" class="large-6 columns">
+		<a href="#/?address={{address}}&city={{city}}&state={{state}}&zip={{zip}}">Back to Shopping</a>
+		<div>
+			<h3>Fulfillment Options</h3>
+			
+		</div>
+
+		<!-- <div style="margin-top: 10px;" ng-show="selectedTitle">
+			<h3>{{selectedTitle}}</h3>
+			<p style="display: inline">{{selectedAddress}}</p>
+			<button ng-click="goConfirm()" class="button small" style="float: right; margin-top: -30px;">Buy</button>
+			
+		</div> -->
+
+		<div>
+			<h3>Your cart</h3>
+			<div ng-repeat="(key, item) in completeCart" class="row" style="margin-bottom: 10px;">
+				<div class="large-4 columns">
+					<img style="width: 100px; margin: 25px 0 0 10px;" src="{{item.image}}">
+				</div>
+				<div style="padding-top: 20px;" class="large-8 columns">
+					<h5>{{item.name}}</h5>
+					<h5 style="display: inline; margin-right: 20px;">{{item.price}}</h5>
+					<h5 style="display: inline;">Quantity:</h5>
+					<!-- <h5 ng-click="removeOne(item)" style="display: inline; cursor: pointer;">-</h5> -->
+					<img src="./assets/images/remove.png" ng-click="removeOne(item)" style="height: 20px; margin: 5px 5px 10px 5px; cursor: pointer">
+					<h5 style="display: inline;"> {{item.quantity}}</h5>
+					<!-- <h5 ng-click="addOne(item)" style="display: inline; cursor: pointer;">+</h5> -->
+					<img src="./assets/images/add.png" ng-click="addOne(item)" style="height: 20px; margin: 5px 5px 10px 5px; cursor: pointer">
+				</div>	
+
+			</div>
+
+			<h5>{{message}}</h5>
+
+			<div class="store" ng-repeat="store in stores | orderBy: 'display'" ng-click="select(store);"
+				ng-class="{selected: store.address == selectedAddress}">
+				<h5 style="display: inline; margin-right: 5px;">{{store.name}}</h5>
+				<h5 style="display: inline; margin-right: 5px;">{{store.address}}</h5>
+				<h5>Est time until pickup is ready: {{store.est_minutes}} min</h5>
+				<h5>Est time for delivery: {{store.delivery}} min</h5>
+				<h5>Est price: ${{store.display}} </h5>
+			</div>
+		
+			<div ng-show="selectedTitle" style="padding-top: 10px;">
+				<h3> Summary</h3>
+				<h5>{{selectedTitle}} {{selectedAddress}}</h5>
+				<h5> Uber (high estimate): ${{uberCost}}</h5>
+				<h5> Tax: ${{tax}}</h5>
+				<h5> Total: ${{total}}</h5>
+				<!-- <img src="./assets/images/buy.png" ng-click="goConfirm()" style="cursor: pointer; height: 25px; margin-left: 0px"> -->
+				<button ng-click="goConfirm()" style="width: 100px; margin: 4px 0 0 5px; height: 37px; padding: 3px 15px; background-color: #60CFDF">Buy</button>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="large-6 columns">
+		<div id="map-canvas" ng-init="initialize()"></div>
+
+	</div>
+
+
+</div>
