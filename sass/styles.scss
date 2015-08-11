@@ -31,6 +31,15 @@ html{
 		height: 160px;
 		width: auto;
 	}
+	.item.ng-leave{
+		transition: 0.5s linear all;
+		background-color: white;
+		opcaity: 1;
+	}
+	.ote,.ng-leave.ng-leave-active {
+		background-color: #E3E3E3;
+	 	opacity:0;
+	}
 }
 
 #checkout-cart{

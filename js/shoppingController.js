@@ -16,7 +16,9 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 
 	$scope.getResults = function(query, lat, lon){
 		$location.search('query' , query);
+		
 		Curbside.instore(query, lat, lon).success(function(data){
+			var count = 0;
 
 			if (Object.keys(data).length == 0){	
 				$scope.message = 'The address you entered was invalid. Please enter a different address.';
@@ -25,12 +27,11 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 			}
 
 			async.forEachOf(data.products, function(obj, val, callback){
+				count++;
 				if (data.products[val].retailer != 'target'){
 				 	delete data.products[val];
 				 	return;
 				}
-
-				console.log(data.products[val]);
 				
 				var len = data.products[val].list_price.toString().length;
 				data.products[val].price = '$' + data.products[val].list_price.toString().substring(0, len-2) + '.' +  data.products[val].list_price.toString().substring(len-2, len);
@@ -49,8 +50,10 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 
 				var shortest = {};
 					var i = 999999;
+					var count2 = 0;
 
-					async.forEachOf(data.products[val].stores, function(a, callback){
+					async.forEachOf(data.products[val].stores, function(a, z, cb){
+						count2++;
 						Curbside.storeSearch(a).success(function(d){
 							data.products[val].full_stores.push(d[0].name + ', ' + d[0].ext_name);
 
@@ -72,24 +75,22 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 								data.products[val].closest = shortest.name + ', ' + shortest.ext_name;
 								data.products[val].additional = (data.products[val].stores.length-1);
 
-								// console.log(data.products[val].name);
-								// console.log(data.products[val].full_stores);
-								// console.log(data.products[val].closest);
-								// console.log('--');
+							// if(--count2 == 0 && count == 0){
+							// 	console.log('last');
+							// 	$scope.message = '';
+							// 	$scope.products = data.products;
+							// 	//deleteStores();
+							// }
 
-
-								//data.products[val].store_string = shortest.name + ', ' + shortest.ext_name + ' + ' + 
-								//(data.products[val].stores.length-1).toString() + ' more stores';
 							}).error(function(err){
 								console.log(err);
 							});
-
 						}).error(function(err){
 
 						});
 					});
 
-					
+				count--;				
 
 				$scope.cache = (sessionStorage.getItem('cache'));
 				$scope.cart = (sessionStorage.getItem('cart'));
@@ -112,11 +113,9 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 					data.products[val].quantity = JSON.parse($scope.cart)[val];
 				}
 
-				
 				$scope.message = '';
-
-
-			$scope.products = data.products;
+				$scope.products = data.products;
+				
 			});
 		}).error(function(){
 
@@ -124,7 +123,7 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 	};
 
 	$scope.addOneToCart = function(key, value){
-		
+
 		
 		// cartManager.addCart(key, value);
 		// $scope.size = cartManager.getCartSize();
@@ -132,15 +131,8 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 		$scope.cart = (sessionStorage.getItem('cart'));
 		var c = $.parseJSON($scope.cart);
 
-		// if ($scope.currentStore && $scope.products[key].closest != $scope.currentStore){
-		// 	alert('You are adding an item that is not from your store of choice. This might cause the delivery to take longer or be invalid.')
-		// }
 
-		console.log($scope.currentStore);
-
-		if($scope.currentStore && ($scope.products[key].full_stores.indexOf($scope.currentStore)) == -1){
-				alert('You are adding an item that is not in stock for the store of your choice. This might cause the delivery to take longer or be invalid.');
-		}
+		
 		
 
 		if(!c){
@@ -166,7 +158,7 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 
 			sessionStorage.setItem('cart', JSON.stringify(c));
 		}
-
+		deleteStores();
 		getSize();
 	}
 
@@ -297,11 +289,10 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 	
 
 	$scope.login = function(){
-		Curbside.login('devin.ho@shopcurbside.com', 'huyho1995').then(function(res){
-			console.log(res);
-			Curbside.session().then(function(res){
-				console.log(res.data);
-			});
+		Curbside.login('devin.ho@shopcurbside.com', '').success(function(data, status, header){
+			console.log(data);
+		}).error(function(err){
+
 		});
 	};
 
@@ -315,6 +306,19 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 		Curbside.session().then(function(res){
 			console.log(res.data);
 		});
+	}
+
+	function deleteStores(){
+		// if($scope.currentStore) {
+		// 	for(var k in $scope.products){
+		// 		if($scope.products[k].full_stores.indexOf($scope.currentStore) == -1){
+		// 			console.log('delete');
+
+		// 			delete $scope.products[k];
+		// 		}
+		// 	}
+			
+		// }
 	}
 
 }]);

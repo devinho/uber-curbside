@@ -81,10 +81,13 @@ services.factory('Curbside', function($http){
 			return $http(req);
 		},
 		account: function(){
-			return $http.get(baseUrl + 'api/v1/account');
+			return $http.get({withCredentials: true}, baseUrl + 'api/v1/account');
 		},
 		session: function(){
-			return $http.get(baseUrl + 'api/v1/session-status');
+			var config = {
+				   
+			}
+			return $http.get(baseUrl + 'api/v1/session-status', config);
 		}
 	}
 });

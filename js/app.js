@@ -1,6 +1,7 @@
-var uberApp = angular.module('uberApp', ['ngRoute', 'uberControllers', 'uberServices']);
+var uberApp = angular.module('uberApp', ['ngRoute', 'uberControllers', 'uberServices', 'ngAnimate']);
 
-uberApp.config(['$routeProvider', function($routeProvider){
+uberApp.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider){
+	//$httpProvider.defaults.withCredentials = true;
 	$routeProvider.
 		when('/', {
 			templateUrl: 'partials/shopping.html',
