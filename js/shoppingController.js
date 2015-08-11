@@ -289,7 +289,7 @@ uberControllers.controller('shoppingController', ['$rootScope', '$scope', 'Curbs
 	
 
 	$scope.login = function(){
-		Curbside.login('devin.ho@shopcurbside.com', '').success(function(data, status, header){
+		Curbside.login('devin.ho@shopcurbside.com', 'huyho1995').success(function(data, status, header){
 			console.log(data);
 		}).error(function(err){
 
